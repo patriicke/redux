@@ -1,7 +1,23 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { increment } from "./actions";
+
 const App = () => {
-  const couter = useSelector((state) => state.counter);
-  return <div>Counter is {couter} </div>;
+  const counter = useSelector((state) => state.counter);
+  const isLogged = useSelector((state) => state.loggedIn);
+  const dispatch = useDispatch();
+  return (
+    <div>
+      <div> Counter is {counter}</div>
+      <div>
+        <button onClick={() => dispatch(increment())}>Increment</button>
+      </div>
+      {isLogged ? (
+        <div>I can only see this if and only if I am logged in</div>
+      ) : (
+        "Login please"
+      )}
+    </div>
+  );
 };
 export default App;
